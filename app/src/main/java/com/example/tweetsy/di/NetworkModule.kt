@@ -11,22 +11,21 @@ import retrofit2.create
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
 @Module
+@InstallIn(SingletonComponent::class)
 class NetworkModule {
+
     @Singleton
     @Provides
-    fun providesRetrofit() : Retrofit{
-        return Retrofit.Builder()
-            .baseUrl("https://api.jsonbin.io/")
+    fun providesRetrofit(): Retrofit{
+        return Retrofit.Builder().baseUrl("https://api.jsonbin.io/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
     @Singleton
     @Provides
-    fun providesTweetsyAPI ( retrofit: Retrofit ) : TweetsyAPI{
+    fun provideTweetsyAPI(retrofit: Retrofit) : TweetsyAPI{
         return retrofit.create(TweetsyAPI::class.java)
     }
-
 }
